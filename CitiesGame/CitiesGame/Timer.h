@@ -11,8 +11,14 @@ private:
 public:
     Timer() : startTime(), durationSeconds(0), isRunning(false) {}
 
+    /**
+ * Блокирует выполнение на указанное количество секунд
+ * @param seconds количество секунд (должно быть >= 0)
+ */
     static void Wait(int seconds) {
-        std::this_thread::sleep_for(std::chrono::seconds(seconds));
+        if (seconds > 0) {
+            std::this_thread::sleep_for(std::chrono::seconds(seconds));
+        }
     }
     /**
  * Останавливает таймер
