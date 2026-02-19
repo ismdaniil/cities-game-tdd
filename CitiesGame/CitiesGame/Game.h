@@ -262,9 +262,9 @@ public:
  * @param playerName имя игрока
  * @return true если игрок существует
  */
-    bool HasPlayer(const std::string& playerName) const {
-        return std::find(players.begin(), players.end(), playerName) != players.end();
-    }
+bool HasPlayer(const std::string& playerName) const {
+    return std::find(players.begin(), players.end(), playerName) != players.end();
+}
 };
 
 // Определение статической константы
