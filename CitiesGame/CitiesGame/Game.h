@@ -257,6 +257,11 @@ public:
         int nextIndex = (currentPlayerIndex + 1) % players.size();
         return players[nextIndex];
     }
+    /**
+ * Проверяет, есть ли игрок с указанным именем
+ * @param playerName имя игрока
+ * @return true если игрок существует
+ */
     bool HasPlayer(const std::string& playerName) const {
         return std::find(players.begin(), players.end(), playerName) != players.end();
     }
