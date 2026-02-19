@@ -230,15 +230,19 @@ public:
         return true;
     }
     bool RemovePlayer(const std::string& playerName) {
-        for (size_t i = 0; i < players.size(); ++i) {
-            if (players[i] == playerName) {
-                players.erase(players.begin() + i);
-                // Корректируем индекс, если нужно
-                if (currentPlayerIndex >= static_cast<int>(players.size()) && !players.empty()) {
-                    currentPlayerIndex = 0;
-                }
-                return true;
+        auto it = std::find(players.begin(), players.end(), playerName);
+        if (it != players.end()) {
+            int index = it - players.begin();
+            players.erase(it);
+
+            // Корректируем индекс текущего игрока
+            if (index < currentPlayerIndex) {
+                currentPlayerIndex--;
             }
+            else if (currentPlayerIndex >= static_cast<int>(players.size()) && !players.empty()) {
+                currentPlayerIndex = 0;
+            }
+            return true;
         }
         return false;
     }
