@@ -33,8 +33,7 @@ private:
     }
 
 public:
-    Game() = default;
-    std::vector<std::string> GetUsedCities() const {
+    const std::vector<std::string>& GetUsedCities() const {
         return usedCities;
     }
     /**
