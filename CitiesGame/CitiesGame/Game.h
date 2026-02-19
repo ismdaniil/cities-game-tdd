@@ -56,6 +56,10 @@ public:
     bool IsCityExist(const std::string& city) const {
         return std::find(citiesDatabase.begin(), citiesDatabase.end(), city) != citiesDatabase.end();
     }
+    /**
+ * Проверяет, не названо ли еще ни одного города
+ * @return true если список использованных городов пуст
+ */
     bool IsUsedCitiesEmpty() const {
         return usedCities.empty();
     }
