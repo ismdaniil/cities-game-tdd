@@ -56,7 +56,9 @@ public:
     bool IsCityExist(const std::string& city) const {
         return std::find(citiesDatabase.begin(), citiesDatabase.end(), city) != citiesDatabase.end();
     }
-
+    bool IsUsedCitiesEmpty() const {
+        return usedCities.empty();
+    }
     /**
      * Получает последнюю значимую букву города (пропуская Ъ, Ы, Ь)
      * @param city название города
