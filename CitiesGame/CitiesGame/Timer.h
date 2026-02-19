@@ -9,7 +9,13 @@ private:
 
 public:
     Timer() : startTime(), durationSeconds(0), isRunning(false) {}
-
+    int GetRemainingTime() const {
+        if (!isRunning) return 0;
+        auto now = std::chrono::steady_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now - startTime);
+        int remaining = durationSeconds - static_cast<int>(elapsed.count());
+        return remaining > 0 ? remaining : 0;
+    }
     /**
      * «апускает таймер на указанное количество секунд
      * @param seconds количество секунд
