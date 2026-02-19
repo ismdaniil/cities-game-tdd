@@ -229,6 +229,19 @@ public:
         usedCities.push_back(city);
         return true;
     }
+    bool RemovePlayer(const std::string& playerName) {
+        for (size_t i = 0; i < players.size(); ++i) {
+            if (players[i] == playerName) {
+                players.erase(players.begin() + i);
+                // Корректируем индекс, если нужно
+                if (currentPlayerIndex >= static_cast<int>(players.size()) && !players.empty()) {
+                    currentPlayerIndex = 0;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
 };
 
 // Определение статической константы
