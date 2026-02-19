@@ -10,12 +10,15 @@ private:
 public:
     Timer() : startTime(), durationSeconds(0), isRunning(false) {}
     /**
-    * Возвращает количество оставшихся секунд
-    * @return оставшееся время в секундах (0 если время истекло)
-    */
+ * Останавливает таймер
+ */
     void Stop() {
         isRunning = false;
     }
+    /**
+    * Возвращает количество оставшихся секунд
+    * @return оставшееся время в секундах (0 если время истекло)
+    */
     int GetRemainingTime() const {
         if (!isRunning) return 0;
 
