@@ -47,9 +47,15 @@ public:
         }
         citiesDatabase = database;
     }
+    /**
+ * ¬озвращает первый названный город
+ * @return первый город или пустую строку, если городов нет
+ */
     std::string GetFirstUsedCity() const {
-        if (usedCities.empty()) return "";
-        return usedCities[0];
+        if (usedCities.empty()) {
+            return "";
+        }
+        return usedCities.front(); // используем front() вместо [0] дл€ €сности
     }
     /**
      * ѕровер€ет, существует ли город в базе
