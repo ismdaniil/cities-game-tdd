@@ -13,6 +13,8 @@ namespace CitiesGameTests
         {
             // Arrange
             Game game;
+            std::vector<std::string> testDatabase = { "Москва" }; // Создаем тестовую базу
+            game.LoadDatabase(testDatabase); // Загружаем ее
             std::string city = "Москва";
 
             // Act

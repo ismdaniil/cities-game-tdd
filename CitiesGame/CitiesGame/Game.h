@@ -5,11 +5,18 @@
 
 class Game {
 private:
-    std::vector<std::string> citiesDatabase = { "Москва" };
+    std::vector<std::string> citiesDatabase;
 
 public:
+    // Конструктор по умолчанию - ничего не инициализируем
+    Game() = default;
+
+    // Метод для загрузки базы данных
+    void LoadDatabase(const std::vector<std::string>& database) {
+        citiesDatabase = database;
+    }
+
     bool IsCityExist(const std::string& city) const {
-        // Используем алгоритм find вместо ручного цикла
         return std::find(citiesDatabase.begin(), citiesDatabase.end(), city) != citiesDatabase.end();
     }
 };
