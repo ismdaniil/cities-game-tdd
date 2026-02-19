@@ -13,6 +13,9 @@ public:
     * ¬озвращает количество оставшихс€ секунд
     * @return оставшеес€ врем€ в секундах (0 если врем€ истекло)
     */
+    void Stop() {
+        isRunning = false;
+    }
     int GetRemainingTime() const {
         if (!isRunning) return 0;
 
