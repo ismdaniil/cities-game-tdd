@@ -20,5 +20,17 @@ namespace CitiesGameTests
             // Assert
             Assert::IsFalse(timer.IsExpired());
         }
+        TEST_METHOD(Timer_GetRemainingTime_AfterOneSecond_ReturnsCorrectValue)
+        {
+            // Arrange
+            Timer timer;
+            timer.Start(3);
+
+       
+            int remaining = timer.GetRemainingTime(); 
+
+        
+            Assert::AreEqual(0, remaining);
+        }
     };
 }
