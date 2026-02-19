@@ -13,10 +13,16 @@ public:
 
     // Метод для загрузки базы данных
     void LoadDatabase(const std::vector<std::string>& database) {
+        if (database.empty()) {
+            // Можно выбросить исключение или просто очистить базу
+            citiesDatabase.clear();
+            return;
+        }
         citiesDatabase = database;
     }
 
     bool IsCityExist(const std::string& city) const {
         return std::find(citiesDatabase.begin(), citiesDatabase.end(), city) != citiesDatabase.end();
     }
+
 };
