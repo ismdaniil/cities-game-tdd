@@ -9,26 +9,36 @@
 
 class Game {
 private:
-    std::vector<std::string> citiesDatabase;
-    std::vector<std::string> usedCities;
-    std::vector<std::string> players;
-    int currentPlayerIndex = 0;
-    static const std::string FORBIDDEN_LETTERS;
+    std::vector<std::string> citiesDatabase;  // База допустимых городов
+    std::vector<std::string> usedCities;      // Уже названные города
+    std::vector<std::string> players;          // Список игроков
+    int currentPlayerIndex = 0;                // Индекс текущего игрока
+    static const std::string FORBIDDEN_LETTERS; // Буквы, которые пропускаем
 
-    // Вспомогательный метод для приведения русских букв к нижнему регистру
+    /**
+     * Приводит русскую или английскую букву к нижнему регистру
+     * @param c исходный символ
+     * @return символ в нижнем регистре
+     */
     char ToLowerRussian(char c) const {
+        // Русские заглавные буквы (диапазон А-Я в CP1251)
         if (c >= 'А' && c <= 'Я') {
-            return c + 32; // В ASCII/CP1251 русские буквы идут с интервалом 32
+            return c + 32; // Смещение до строчных букв
         }
+        // Английские заглавные буквы
         if (c >= 'A' && c <= 'Z') {
-            return c + 32; // Английские в нижний регистр
+            return c + 32; // Смещение до строчных
         }
-        return c;
+        return c; // Уже строчная или не буква
     }
 
 public:
     Game() = default;
 
+    /**
+     * Загружает базу допустимых городов
+     * @param database вектор с названиями городов
+     */
     void LoadDatabase(const std::vector<std::string>& database) {
         if (database.empty()) {
             citiesDatabase.clear();
@@ -37,30 +47,43 @@ public:
         citiesDatabase = database;
     }
 
+    /**
+     * Проверяет, существует ли город в базе
+     * @param city название города
+     * @return true если город есть в базе
+     */
     bool IsCityExist(const std::string& city) const {
         return std::find(citiesDatabase.begin(), citiesDatabase.end(), city) != citiesDatabase.end();
     }
 
-    // Получить последнюю значимую букву (пропуская Ъ, Ы, Ь)
+    /**
+     * Получает последнюю значимую букву города (пропуская Ъ, Ы, Ь)
+     * @param city название города
+     * @return последняя значимая буква в нижнем регистре
+     */
     char GetLastSignificantChar(const std::string& city) const {
         if (city.empty()) return '\0';
 
-        // Ищем последний значимый символ с конца
+        // Ищем с конца первый символ, не являющийся запрещенным
         for (int i = city.length() - 1; i >= 0; i--) {
             char currentChar = city[i];
-            // Проверяем, не является ли текущий символ запрещенным
             if (FORBIDDEN_LETTERS.find(currentChar) == std::string::npos) {
                 return ToLowerRussian(currentChar);
             }
         }
 
-        // Если все символы запрещенные (маловероятно), возвращаем последний
+        // Если все символы запрещенные (редкий случай)
         return ToLowerRussian(city.back());
     }
 
-    // Проверить, подходит ли следующий город по правилу последней буквы
+    /**
+     * Проверяет, подходит ли следующий город по правилу последней буквы
+     * @param lastCity предыдущий город
+     * @param nextCity следующий город
+     * @return true если правило соблюдено
+     */
     bool IsValidNextCity(const std::string& lastCity, const std::string& nextCity) const {
-        if (lastCity.empty() || nextCity.empty()) return true; // Для первого хода всегда true
+        if (lastCity.empty() || nextCity.empty()) return true;
 
         char lastChar = GetLastSignificantChar(lastCity);
         char firstChar = ToLowerRussian(nextCity[0]);
@@ -68,7 +91,11 @@ public:
         return lastChar == firstChar;
     }
 
-    // Добавить город в список использованных
+    /**
+     * Добавляет город в список использованных
+     * @param city название города
+     * @return true если город успешно добавлен
+     */
     bool AddCity(const std::string& city) {
         if (!IsCityExist(city)) {
             return false;
@@ -82,58 +109,102 @@ public:
         return true;
     }
 
-    // Проверить, использовался ли город
+    /**
+     * Проверяет, был ли город уже использован
+     * @param city название города
+     * @return true если город уже называли
+     */
     bool IsCityUsed(const std::string& city) const {
         return std::find(usedCities.begin(), usedCities.end(), city) != usedCities.end();
     }
 
-    // Получить последний использованный город
+    /**
+     * Возвращает последний использованный город
+     * @return название последнего города или пустую строку
+     */
     std::string GetLastCity() const {
         if (usedCities.empty()) return "";
         return usedCities.back();
     }
 
-    // Методы для работы с игроками
+    /**
+     * Добавляет игрока
+     * @param playerName имя игрока
+     */
     void AddPlayer(const std::string& playerName) {
         if (playerName.empty()) return;
         players.push_back(playerName);
     }
 
+    /**
+     * Возвращает количество игроков
+     * @return число игроков
+     */
     int GetPlayersCount() const {
         return players.size();
     }
 
+    /**
+     * Возвращает имя текущего игрока
+     * @return имя игрока или пустую строку
+     */
     std::string GetCurrentPlayer() const {
         if (players.empty()) return "";
         return players[currentPlayerIndex];
     }
 
+    /**
+     * Переходит к следующему игроку
+     */
     void NextPlayer() {
         if (players.empty()) return;
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     }
 
+    /**
+     * Сбрасывает очередь игроков к первому
+     */
     void ResetPlayers() {
         currentPlayerIndex = 0;
     }
 
+    /**
+     * Возвращает список всех игроков
+     * @return константная ссылка на вектор игроков
+     */
     const std::vector<std::string>& GetPlayers() const {
         return players;
     }
 
+    /**
+     * Возвращает индекс текущего игрока
+     * @return индекс (0-based)
+     */
     int GetCurrentPlayerIndex() const {
         return currentPlayerIndex;
     }
 
+    /**
+     * Возвращает количество использованных городов
+     * @return число названных городов
+     */
     int GetUsedCitiesCount() const {
         return usedCities.size();
     }
 
+    /**
+     * Сбрасывает игру (очищает список использованных городов)
+     */
     void ResetGame() {
         usedCities.clear();
     }
 
-    // Перегруженная версия AddCity с проверкой правила последней буквы
+    /**
+     * Добавляет город с проверкой правила последней буквы
+     * @param city новый город
+     * @param lastCity предыдущий город
+     * @return true если город успешно добавлен
+     */
     bool AddCity(const std::string& city, const std::string& lastCity) {
         if (!IsCityExist(city)) return false;
         if (IsCityUsed(city)) return false;
@@ -144,5 +215,5 @@ public:
     }
 };
 
-// Определяем статическую константу вне класса
+// Определение статической константы
 const std::string Game::FORBIDDEN_LETTERS = "ъыьЪЫЬ";
