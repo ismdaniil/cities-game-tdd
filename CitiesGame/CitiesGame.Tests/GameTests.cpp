@@ -132,6 +132,17 @@ namespace CitiesGameTests
             // Assert
             Assert::AreEqual(std::string("ÃÓÒÍ‚‡"), usedCities[0]);
         }
+        TEST_METHOD(IsUsedCitiesEmpty_NoCitiesAdded_ReturnsTrue)
+        {
+            // Arrange
+            Game game;
+
+            // Act
+            bool result = game.IsUsedCitiesEmpty(); // ›“Œ√Œ Ã≈“Œƒ¿ Õ≈“!
+
+            // Assert
+            Assert::IsTrue(result);
+        }
     };
 
 }
