@@ -246,6 +246,11 @@ public:
         }
         return false;
     }
+    std::string GetNextPlayer() const {
+        if (players.empty()) return "";
+        int nextIndex = (currentPlayerIndex + 1) % players.size();
+        return players[nextIndex];
+    }
 };
 
 // Определение статической константы
