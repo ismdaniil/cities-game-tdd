@@ -47,7 +47,10 @@ public:
         }
         citiesDatabase = database;
     }
-
+    std::string GetFirstUsedCity() const {
+        if (usedCities.empty()) return "";
+        return usedCities[0];
+    }
     /**
      * Проверяет, существует ли город в базе
      * @param city название города
