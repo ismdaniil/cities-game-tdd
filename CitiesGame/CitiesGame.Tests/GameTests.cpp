@@ -127,7 +127,7 @@ namespace CitiesGameTests
             game.AddCity("Москва");
 
             // Act
-            std::vector<std::string> usedCities = game.GetUsedCities(); // ЭТОГО МЕТОДА НЕТ!
+            std::vector<std::string> usedCities = game.GetUsedCities(); 
 
             // Assert
             Assert::AreEqual(std::string("Москва"), usedCities[0]);

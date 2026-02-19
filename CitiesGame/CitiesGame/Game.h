@@ -34,7 +34,9 @@ private:
 
 public:
     Game() = default;
-
+    std::vector<std::string> GetUsedCities() const {
+        return usedCities;
+    }
     /**
      * Загружает базу допустимых городов
      * @param database вектор с названиями городов
