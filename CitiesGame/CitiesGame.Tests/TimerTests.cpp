@@ -49,7 +49,7 @@ namespace CitiesGameTests
             auto start = std::chrono::steady_clock::now();
 
             // Act
-            Timer::Wait(1); // щрнцн лерндю мер!
+            Timer::Wait(1); 
 
             // Assert
             auto end = std::chrono::steady_clock::now();

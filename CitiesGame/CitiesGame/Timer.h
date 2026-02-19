@@ -1,5 +1,6 @@
 #pragma once
 #include <chrono>
+#include <thread>
 
 class Timer {
 private:
@@ -9,6 +10,10 @@ private:
 
 public:
     Timer() : startTime(), durationSeconds(0), isRunning(false) {}
+
+    static void Wait(int seconds) {
+        std::this_thread::sleep_for(std::chrono::seconds(seconds));
+    }
     /**
  * Останавливает таймер
  */
