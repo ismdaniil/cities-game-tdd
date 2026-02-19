@@ -257,6 +257,9 @@ public:
         int nextIndex = (currentPlayerIndex + 1) % players.size();
         return players[nextIndex];
     }
+    bool HasPlayer(const std::string& playerName) const {
+        return std::find(players.begin(), players.end(), playerName) != players.end();
+    }
 };
 
 // Определение статической константы
