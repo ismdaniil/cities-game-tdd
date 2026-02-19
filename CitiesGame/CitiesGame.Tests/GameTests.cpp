@@ -159,6 +159,19 @@ namespace CitiesGameTests
             // Assert
             Assert::AreEqual(std::string("Москва"), firstCity);
         }
+        TEST_METHOD(RemovePlayer_ExistingPlayer_ReturnsTrue)
+        {
+            // Arrange
+            Game game;
+            game.AddPlayer("Алиса");
+            game.AddPlayer("Боб");
+
+            // Act
+            bool result = game.RemovePlayer("Алиса"); // ЭТОГО МЕТОДА НЕТ!
+
+            // Assert
+            Assert::IsTrue(result);
+        }
     };
 
 }
