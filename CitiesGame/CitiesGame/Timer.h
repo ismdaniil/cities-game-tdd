@@ -8,14 +8,22 @@ private:
     bool isRunning;
 
 public:
-    Timer() : durationSeconds(0), isRunning(false) {}
+    Timer() : startTime(), durationSeconds(0), isRunning(false) {}
 
+    /**
+     * Запускает таймер на указанное количество секунд
+     * @param seconds количество секунд
+     */
     void Start(int seconds) {
         durationSeconds = seconds;
         startTime = std::chrono::steady_clock::now();
         isRunning = true;
     }
 
+    /**
+     * Проверяет, истекло ли время
+     * @return true если время истекло или таймер не запущен
+     */
     bool IsExpired() const {
         if (!isRunning) return true;
         auto now = std::chrono::steady_clock::now();
