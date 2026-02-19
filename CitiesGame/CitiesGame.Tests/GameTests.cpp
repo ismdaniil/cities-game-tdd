@@ -21,5 +21,20 @@ namespace CitiesGameTests
             // Assert
             Assert::IsTrue(result);
         }
+        TEST_METHOD(IsCityExist_AfterLoadingDatabase_ReturnsTrueForNewCity)
+        {
+            // ARRANGE - готовим данные
+            Game game;
+            std::vector<std::string> testDatabase = { "Париж", "Лондон", "Токио" };
+            game.LoadDatabase(testDatabase); // ЭТОГО МЕТОДА ПОКА НЕТ - тест не скомпилируется (КРАСНЫЙ)
+            std::string city = "Лондон";
+
+            // ACT - выполняем действие
+            bool result = game.IsCityExist(city);
+
+            // ASSERT - проверяем результат
+            Assert::IsTrue(result);
+        }
     };
+
 }
