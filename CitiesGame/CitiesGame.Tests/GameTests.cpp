@@ -37,6 +37,86 @@ namespace CitiesGameTests
             // ASSERT - проверяем результат
             Assert::IsTrue(result);
         }
+        TEST_METHOD(GetLastSignificantChar_NormalCity_ReturnsLastChar)
+        {
+            // Arrange
+            Game game;
+            std::string city = "Москва";
+
+            // Act
+            char result = game.GetLastSignificantChar(city);
+
+            // Assert
+            Assert::AreEqual('а', result);
+        }
+
+        TEST_METHOD(GetLastSignificantChar_CityEndsWithSoftSign_ReturnsPreviousChar)
+        {
+            // Arrange
+            Game game;
+            std::string city = "Харьков"; // Заканчивается на 'в' после 'ь'
+
+            // Act
+            char result = game.GetLastSignificantChar(city);
+
+            // Assert
+            Assert::AreEqual('в', result);
+        }
+
+        TEST_METHOD(GetLastSignificantChar_CityEndsWithHardSign_ReturnsPreviousChar)
+        {
+            // Arrange
+            Game game;
+            std::string city = "Подъезд"; // Заканчивается на 'д' после 'ъ'
+
+            // Act
+            char result = game.GetLastSignificantChar(city);
+
+            // Assert
+            Assert::AreEqual('д', result);
+        }
+
+        TEST_METHOD(IsValidNextCity_ValidCity_ReturnsTrue)
+        {
+            // Arrange
+            Game game;
+            std::string lastCity = "Москва";  // Заканчивается на 'а'
+            std::string nextCity = "Архангельск"; // Начинается на 'А'
+
+            // Act
+            bool result = game.IsValidNextCity(lastCity, nextCity);
+
+            // Assert
+            Assert::IsTrue(result);
+        }
+
+        TEST_METHOD(IsValidNextCity_InvalidCity_ReturnsFalse)
+        {
+            // Arrange
+            Game game;
+            std::string lastCity = "Москва";  // Заканчивается на 'а'
+            std::string nextCity = "Брянск";   // Начинается на 'Б'
+
+            // Act
+            bool result = game.IsValidNextCity(lastCity, nextCity);
+
+            // Assert
+            Assert::IsFalse(result);
+        }
+
+        TEST_METHOD(IsValidNextCity_WithSoftSign_ReturnsTrue)
+        {
+            // Arrange
+            Game game;
+            std::string lastCity = "Харьков";  // Значимая последняя буква 'в'
+            std::string nextCity = "Воронеж";   // Начинается на 'В'
+
+            // Act
+            bool result = game.IsValidNextCity(lastCity, nextCity);
+
+            // Assert
+            Assert::IsTrue(result);
+        }
     };
 
 }
