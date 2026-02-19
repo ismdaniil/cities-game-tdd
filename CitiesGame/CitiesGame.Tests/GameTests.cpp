@@ -185,6 +185,18 @@ namespace CitiesGameTests
             // Assert
             Assert::AreEqual(std::string("Боб"), nextPlayer);
         }
+        TEST_METHOD(HasPlayer_ExistingPlayer_ReturnsTrue)
+        {
+            // Arrange
+            Game game;
+            game.AddPlayer("Алиса");
+
+            // Act
+            bool result = game.HasPlayer("Алиса");
+
+            // Assert
+            Assert::IsTrue(result);
+        }
     };
 
 }
