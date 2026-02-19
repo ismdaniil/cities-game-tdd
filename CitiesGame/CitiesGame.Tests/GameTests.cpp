@@ -143,6 +143,22 @@ namespace CitiesGameTests
             // Assert
             Assert::IsTrue(result);
         }
+        TEST_METHOD(GetFirstUsedCity_AfterAddingTwoCities_ReturnsFirstCity)
+        {
+            // Arrange
+            Game game;
+            std::vector<std::string> testDatabase = { "Москва", "Минск", "Киев" };
+            game.LoadDatabase(testDatabase);
+            game.AddCity("Москва");
+            game.AddCity("Минск");
+            game.AddCity("Киев");
+
+            // Act
+            std::string firstCity = game.GetFirstUsedCity(); // ЭТОГО МЕТОДА НЕТ!
+
+            // Assert
+            Assert::AreEqual(std::string("Москва"), firstCity);
+        }
     };
 
 }
