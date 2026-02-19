@@ -246,8 +246,14 @@ public:
         }
         return false;
     }
+    /**
+ * Возвращает имя следующего игрока, не меняя текущего
+ * @return имя следующего игрока или пустую строку
+ */
     std::string GetNextPlayer() const {
-        if (players.empty()) return "";
+        if (players.empty()) {
+            return "";
+        }
         int nextIndex = (currentPlayerIndex + 1) % players.size();
         return players[nextIndex];
     }
