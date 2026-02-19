@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "../CitiesGame/Game.h" // Подключаем будущий класс
+#include "../CitiesGame/Game.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -28,7 +28,7 @@ namespace CitiesGameTests
             // ARRANGE - готовим данные
             Game game;
             std::vector<std::string> testDatabase = { "Париж", "Лондон", "Токио" };
-            game.LoadDatabase(testDatabase); // ЭТОГО МЕТОДА ПОКА НЕТ - тест не скомпилируется (КРАСНЫЙ)
+            game.LoadDatabase(testDatabase); 
             std::string city = "Лондон";
 
             // ACT - выполняем действие
@@ -138,7 +138,7 @@ namespace CitiesGameTests
             Game game;
 
             // Act
-            bool result = game.IsUsedCitiesEmpty(); // ЭТОГО МЕТОДА НЕТ!
+            bool result = game.IsUsedCitiesEmpty();
 
             // Assert
             Assert::IsTrue(result);
@@ -154,7 +154,7 @@ namespace CitiesGameTests
             game.AddCity("Киев");
 
             // Act
-            std::string firstCity = game.GetFirstUsedCity(); // ЭТОГО МЕТОДА НЕТ!
+            std::string firstCity = game.GetFirstUsedCity(); 
 
             // Assert
             Assert::AreEqual(std::string("Москва"), firstCity);
@@ -167,10 +167,23 @@ namespace CitiesGameTests
             game.AddPlayer("Боб");
 
             // Act
-            bool result = game.RemovePlayer("Алиса"); // ЭТОГО МЕТОДА НЕТ!
+            bool result = game.RemovePlayer("Алиса"); 
 
             // Assert
             Assert::IsTrue(result);
+        }
+        TEST_METHOD(GetNextPlayer_AfterFirstPlayer_ReturnsSecondPlayer)
+        {
+            // Arrange
+            Game game;
+            game.AddPlayer("Алиса");
+            game.AddPlayer("Боб");
+
+            // Act
+            std::string nextPlayer = game.GetNextPlayer();
+
+            // Assert
+            Assert::AreEqual(std::string("Боб"), nextPlayer);
         }
     };
 
