@@ -43,5 +43,18 @@ namespace CitiesGameTests
             // Assert
             Assert::IsTrue(timer.IsExpired());
         }
+        TEST_METHOD(Timer_Wait_WaitsAtLeastSpecifiedTime)
+        {
+            // Arrange
+            auto start = std::chrono::steady_clock::now();
+
+            // Act
+            Timer::Wait(1); // щрнцн лерндю мер!
+
+            // Assert
+            auto end = std::chrono::steady_clock::now();
+            auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+            Assert::IsTrue(elapsed.count() >= 1000);
+        }
     };
 }
